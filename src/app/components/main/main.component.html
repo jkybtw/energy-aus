@@ -1,0 +1,12 @@
+<ul>
+  <li *ngFor="let record of recordLabels | keyvalue"> {{record.key}}
+    <ul>
+      <li *ngFor="let bands of record.value | keyvalue"> {{bands.key}}
+        <ul>
+          <li *ngFor="let festival of bands.value"> {{festival}}
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
