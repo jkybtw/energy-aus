@@ -25,8 +25,7 @@ export class MainComponent implements OnInit {
   constructor(private festivalService: FestivalService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    // this.loadFestivals();
-    this.fetchLocal();
+    this.loadFestivals();
   }
 
   loadFestivals() {
@@ -61,10 +60,8 @@ export class MainComponent implements OnInit {
        return;
     }
     this.festivals.forEach((festival: MusicFestival) => {
-      console.log('Festival: ' + festival.name);
       const bands: Band[] = festival.bands;
       bands.forEach(band => {
-        console.log('Band: ' + band.name);
         this.setUpRecordLabels(band, festival.name);
       });
     });
@@ -101,7 +98,6 @@ export class MainComponent implements OnInit {
   sortRecordlabels() {
     this.recordLabels.forEach((bands: Map<string, Set<string>>, label: string, record: Map<string, Map<string, Set<string>>>) => {
       bands.forEach((festivals: Set<string>, band: string, map: Map<string, Set<string>>) => {
-        console.log(map);
         map.set(band, this.sortSet(festivals));
       });
     });

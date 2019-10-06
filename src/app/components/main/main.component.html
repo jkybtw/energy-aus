@@ -3,7 +3,7 @@
 </div>
 <div class="fetchInfo" *ngIf="!loaded">
   <span>
-    <h3>Loading data...</h3>
+    <h3>Fetching online data...</h3>
     <mat-spinner [diameter]=20></mat-spinner>
   </span>
 </div>
@@ -13,7 +13,7 @@
       {{record.key}}
     </mat-card-title>
     <mat-card-content>
-      <mat-accordion>
+      <mat-accordion [multi]="true">
         <mat-expansion-panel class="mat-elevation-z0" *ngFor="let bands of record.value | keyvalue">
           <mat-expansion-panel-header>
             <mat-panel-title>
@@ -21,10 +21,8 @@
             </mat-panel-title>
             <mat-panel-description>{{bands.value.size}} festivals found</mat-panel-description>
           </mat-expansion-panel-header>
-          <ul>
-            <li *ngFor="let festival of bands.value"> {{festival}}
-            </li>
-          </ul>
+            <p *ngFor="let festival of bands.value"> {{festival}}
+            </p>
         </mat-expansion-panel>
       </mat-accordion>
     </mat-card-content>

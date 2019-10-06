@@ -4,7 +4,12 @@ mat-spinner {
 }
 
 h3 {
-  display: inline;
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+mat-spinner {
+  display: inline-block;
 }
 
 mat-card {
@@ -15,10 +20,6 @@ mat-expansion-panel-header {
   padding: 0 12px;
 }
 
-button {
-  margin-bottom: 1rem;
-}
-
 .mat-expansion-panel-body {
-  padding: 0 0 16px;
+  padding: 0 12px 16px !important;
 }
