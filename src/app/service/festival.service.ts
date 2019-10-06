@@ -5,7 +5,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FestivalService {
-  uri = 'http://eacodingtest.digital.energyaustralia.com.au/api/v1/festivals';
+  // uri = 'http://eacodingtest.digital.energyaustralia.com.au/api/v1/festivals';
+  // hosting proxy server to bypass CORS error
+  uri = 'https://ea-back-135q34.herokuapp.com/';
   constructor(private httpclient: HttpClient) {
 
   }

@@ -2,23 +2,43 @@ import { Component, OnInit } from '@angular/core';
 import { FestivalService } from 'src/app/service/festival.service';
 import { MusicFestival } from 'src/app/interfaces/musicfestival';
 import { Band } from 'src/app/interfaces/band';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
+  /**
+   * Task convert from
+   * Festival -> Band, Label to
+   * Label -> Band -> Festival
+   * Sort alphabetically the Label, Band and Festival
+   * RecordLabel and Festival could be missing
+   */
 export class MainComponent implements OnInit {
 
   festivals: MusicFestival[] = [];
   recordLabels = new Map<string, Map<string, Set<string>>>();
-
-  constructor(private festivalService: FestivalService) { }
+  loaded = false;
+  jsonSource = 'Loading';
+  constructor(private festivalService: FestivalService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
+    // this.loadFestivals();
+    this.fetchLocal();
+  }
+
+  loadFestivals() {
+    this.loaded = false;
     this.festivalService.getFestivals().subscribe((data: MusicFestival[]) => {
-      console.log(data);
+      console.log('Fetching festival data from online API');
       this.festivals = data;
+      this.parseFestivals();
+      this.sortRecordlabels();
+      this.loaded = true;
+      this.jsonSource = 'Online';
+      this.openSnackBar();
     }, (error) => {
       console.log('Unable to fetch festivals, using local response');
       this.fetchLocal();
@@ -28,18 +48,18 @@ export class MainComponent implements OnInit {
   fetchLocal() {
     this.festivalService.getFestivalsLocal().subscribe((data: MusicFestival[]) => {
       this.festivals = data;
-      this.sort();
+      this.parseFestivals();
+      this.sortRecordlabels();
+      this.loaded = true;
+      this.jsonSource = 'Local';
+      this.openSnackBar();
     });
   }
 
-  /**
-   * Task convert from
-   * Festival -> Band, Label to
-   * Label -> Band -> Festival
-   * Sort alphabetically the Label, Band and Festival
-   * RecordLabel and Festival could be missing
-   */
-  sort() {
+  parseFestivals() {
+    if (this.festivals.length === 0) {
+       return;
+    }
     this.festivals.forEach((festival: MusicFestival) => {
       console.log('Festival: ' + festival.name);
       const bands: Band[] = festival.bands;
@@ -48,30 +68,24 @@ export class MainComponent implements OnInit {
         this.setUpRecordLabels(band, festival.name);
       });
     });
-    console.log(this.recordLabels);
   }
 
   setUpRecordLabels(band: Band, festival: string) {
-    const label = (band.recordLabel) ? band.recordLabel : 'No label';
+    const label = band.recordLabel ? band.recordLabel : 'No label';
     const validFestival = festival ? true : false;
-    // if there exists recordlabel
-    // if there exists a band
-    // add festival to set
-    // if there is no band
-    // add new <band, set<festival>>
-    const labelMap = this.recordLabels.get(label);
-    // recordlabel exists
-    if (labelMap !== undefined) {
-      if (labelMap.get(band.name) !== undefined) {
+    const bandMap = this.recordLabels.get(label);
+
+    if (bandMap !== undefined) {
+      if (bandMap.get(band.name) !== undefined) {
         if (validFestival) {
-          labelMap.get(band.name).add(festival);
+          bandMap.get(band.name).add(festival);
         }
       } else {
         const set = new Set<string>();
         if (validFestival) {
           set.add(festival);
         }
-        labelMap.set(band.name, set);
+        bandMap.set(band.name, set);
       }
     } else {
       const map = new Map<string, Set<string>>();
@@ -83,7 +97,24 @@ export class MainComponent implements OnInit {
       this.recordLabels.set(label, map);
     }
   }
-  // TODO: Fix CORS issue - proxy backend
-  // TODO: sort Festivals
+
+  sortRecordlabels() {
+    this.recordLabels.forEach((bands: Map<string, Set<string>>, label: string, record: Map<string, Map<string, Set<string>>>) => {
+      bands.forEach((festivals: Set<string>, band: string, map: Map<string, Set<string>>) => {
+        console.log(map);
+        map.set(band, this.sortSet(festivals));
+      });
+    });
+  }
+
   // TODO: tests
+  sortSet(set: Set<string>) {
+    return new Set([...set].sort());
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Source: ' + this.jsonSource, 'Close', {
+      duration: 10000,
+    });
+  }
 }

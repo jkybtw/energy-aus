@@ -1,5 +1,14 @@
 [
   {
+    "name": "ZZzz",
+    "bands": [
+      {
+        "name": "Winter Primates",
+        "recordLabel": ""
+      }
+    ]
+  },
+  {
     "name": "LOL-palooza",
     "bands": [
       {
@@ -23,6 +32,10 @@
   {
     "name": "Small Night In",
     "bands": [
+      {
+        "name": "Winter Primates",
+        "recordLabel": ""
+      },
       {
         "name": "The Black Dashes",
         "recordLabel": "Fourth Woman Records"
@@ -48,6 +61,10 @@
   {
     "name": "Trainerella",
     "bands": [
+      {
+        "name": "Winter Primates",
+        "recordLabel": ""
+      },
       {
         "name": "Wild Antelope",
         "recordLabel": "Still Bottom Records"
@@ -84,6 +101,10 @@
   },
   {
     "bands": [
+      {
+        "name": "Winter Primates",
+        "recordLabel": ""
+      },
       {
         "name": "Critter Girls",
         "recordLabel": "ACR"

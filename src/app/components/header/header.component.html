@@ -1,0 +1,13 @@
+<header>
+  <mat-toolbar>
+    <div class="header-container">
+      <a [routerLink]="['/']">
+        <span class="mat-title">EA Coding Test</span>
+      </a>
+      <button mat-button [routerLink]="['/about']">About</button>
+    </div>
+  </mat-toolbar>
+</header>
+<div class="body-container">
+  <router-outlet></router-outlet>
+</div>

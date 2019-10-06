@@ -1,0 +1,20 @@
+.header-container {
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+
+.body-container {
+  padding: 1rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+a, a:visited, a:hover, a:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  float: right;
+}
