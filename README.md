@@ -1,3 +1,5 @@
+# View the project [here](https://jkybtw.github.io/ea/)
+
 # EnergyAus
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.0.
