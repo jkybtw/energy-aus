@@ -1,6 +1,17 @@
-<div class="infobar">
-  <button mat-raised-button color="accent" id="refresh" (click)="loadFestivals()">Refresh</button>
-</div>
+<mat-card>
+  <div class="infobar" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field>
+      <mat-label>Data source:</mat-label>
+      <mat-select [(ngModel)]="selectedSource">
+        <mat-option value="auto">Auto</mat-option>
+        <mat-option value="local">Local</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button id="refresh" (click)="onRefreshClick()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </div>
+</mat-card>
 <div class="fetchInfo" *ngIf="!loaded">
   <span>
     <h3>Fetching online data...</h3>
@@ -8,18 +19,21 @@
   </span>
 </div>
 <div *ngIf="loaded">
+  <h3 *ngIf="recordLabels.size === 0">No records found.</h3>
   <mat-card *ngFor="let record of recordLabels | keyvalue">
     <mat-card-title>
       {{record.key}}
     </mat-card-title>
     <mat-card-content>
       <mat-accordion [multi]="true">
-        <mat-expansion-panel class="mat-elevation-z0" *ngFor="let bands of record.value | keyvalue">
+        <mat-expansion-panel [disabled]="bands.value.size === 0" class="mat-elevation-z0" *ngFor="let bands of record.value | keyvalue">
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{bands.key}}
             </mat-panel-title>
-            <mat-panel-description>{{bands.value.size}} festivals found</mat-panel-description>
+            <mat-panel-description *ngIf="bands.value.size === 0">No festivals found</mat-panel-description>
+            <mat-panel-description *ngIf="bands.value.size === 1">{{bands.value.size}} festival found</mat-panel-description>
+            <mat-panel-description *ngIf="bands.value.size > 1">{{bands.value.size}} festivals found</mat-panel-description>
           </mat-expansion-panel-header>
             <p *ngFor="let festival of bands.value"> {{festival}}
             </p>

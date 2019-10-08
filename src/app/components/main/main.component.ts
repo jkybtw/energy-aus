@@ -22,6 +22,7 @@ export class MainComponent implements OnInit {
   recordLabels = new Map<string, Map<string, Set<string>>>();
   loaded = false;
   jsonSource = 'Loading';
+  selectedSource = 'auto';
   constructor(private festivalService: FestivalService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -45,6 +46,7 @@ export class MainComponent implements OnInit {
   }
 
   fetchLocal() {
+    this.loaded = false;
     this.festivalService.getFestivalsLocal().subscribe((data: MusicFestival[]) => {
       this.festivals = data;
       this.parseFestivals();
@@ -55,7 +57,18 @@ export class MainComponent implements OnInit {
     });
   }
 
+  onRefreshClick() {
+    if (this.selectedSource === 'auto') {
+      console.log('auto');
+      this.loadFestivals();
+    } else {
+      console.log('local');
+      this.fetchLocal();
+    }
+  }
+
   parseFestivals() {
+    this.recordLabels.clear();
     if (this.festivals.length === 0) {
        return;
     }
@@ -109,7 +122,7 @@ export class MainComponent implements OnInit {
   }
 
   openSnackBar() {
-    this.snackBar.open('Source: ' + this.jsonSource, 'Close', {
+    this.snackBar.open('Data source: ' + this.jsonSource, 'Close', {
       duration: 10000,
     });
   }

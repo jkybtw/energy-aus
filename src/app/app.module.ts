@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,9 +13,14 @@ import { MatCardModule,
   MatButtonModule,
   MatToolbarModule,
   MatSnackBarModule,
-  MatExpansionModule } from '@angular/material';
+  MatExpansionModule,
+  MatFormFieldModule,
+  MatSelectModule,
+  MatIconModule,
+  MatSlideToggleModule} from '@angular/material';
 import { HeaderComponent } from './components/header/header.component';
 import { AboutComponent } from './components/about/about.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,7 +40,13 @@ import { AboutComponent } from './components/about/about.component';
     MatButtonModule,
     MatToolbarModule,
     MatSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatIconModule,
+    MatSlideToggleModule,
+    FormsModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

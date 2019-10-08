@@ -1,1 +1,63 @@
-<p>about works!</p>
+<mat-card>
+  <mat-card-title>About This Project</mat-card-title>
+  <mat-card-content>
+    <p>This problem was given to me as part of my Energy Australia graduate interview process.</p>
+    <p>The data was provided to us via an API, however I found that when I was working on this project, the API would be unavailable so I also used an offline json of the data I would have received as a fallback mechanism.</p>
+    <p>Another issue I had with the API was that it would give a CORS 'no Access-Control-Allow-Origin' error, so I had hosted a simple Node backend proxy that would forward the request with such header.</p>
+    <p>Most of this project was completed before my given deadline, however I have worked on it since the deadline, adding stylistic changes as well as filling out this page.</p>
+  </mat-card-content>
+  <mat-card-actions>
+      <a mat-button href="https://github.com/jkybtw/energy-aus" target="_blank">View on Github</a>
+  </mat-card-actions>
+</mat-card>
+<mat-card>
+  <mat-card-title>
+    The Problem
+  </mat-card-title>
+  <mat-card-content>
+    <p>Your team is tasked with listing out music festival data in a particular manner: at the top level, it should show the band record label, below that it should list out all bands under their management, and below that it should display which festivals they've attended, if any. All entries should be sorted alphabetically.</p>
+    <p>For example:</p>
+    <ul>
+      <li>
+        Record Label 1
+        <ul>
+          <li>
+            Band X
+            <ul>
+              <li>
+                Omega Festival
+              </li>
+            </ul>
+          </li>
+          <li>
+            Band Y
+          </li>
+        </ul>
+      </li>
+      <li>
+        Record Label 2
+        <ul>
+          <li>
+            Band A
+            <ul>
+                <li>
+                    Alpha Festival
+                  </li>
+                  <li>
+                    Beta Festival
+                  </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </mat-card-content>
+</mat-card>
+
+
+
+
+
+
+
+
